@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>TOC - Editor.md examples</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="../css/editormd.css" />
+    <link rel="shortcut icon" href="https://pandao.github.io/editor.md/favicon.ico" type="image/x-icon" />
+    <style>
+        #custom-toc-container {
+            border: 1px solid #ddd;
+            width: 90%;
+            margin: 0 auto 15px;
+            overflow: visible;
+        }
+
+        #custom-toc-container > .markdown-toc {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>文章编辑</h2>
+    <div id="input">
+        <input type="text" id="title" placeholder="请输入标题">
+        <input type="text" id="tags" placeholder="请输入标签，用逗号隔开">
+    </div>
+    <div id="test-editormd">
+        <textarea id="editor" rows="50" style="display:none;"></textarea>
+    </div>
+    <button id="submit" onclick="submit()">提交</button>
+
+    </div>
+    <!--testEditor.getMarkdown();-->
+    <script src="js/jquery.min.js"></script>
+    <script src="../editormd.js"></script>
+    <script type="text/javascript">
+        function submit() {
+            const title = $("#title").val();
+            const tags = $('#tags').val();
+            // const content = $('#editor').html();
+            // const content = testEditor.getMarkdown();
+           const content =  $('.markdown-body.editormd-preview-container').html();
+            $.ajax({
+                url: 'http://127.0.0.1:8080/editBlog?title=' + title + "&tags=" + tags,
+                method: 'post',
+                data: content,
+                success(resp) {
+                    alert(JSON.parse(resp).msg);
+                    $('#editor').html("");
+                },
+                error(err) {
+                    console.log(err);
+                    alert("添加失败");
+                }
+            })
+        }
+        var testEditor;
+        $(function () {
+            testEditor = editormd("test-editormd", {
+                width: "90%",
+                height: 720,
+                path: "../lib/",
+                //toc           : false,         // diable ToC
+                tocStartLevel: 2      // Parse beginning of H2, Default value 1
+            });
+
+            $("#insert-btn").click(function () {
+                testEditor.config({
+                    tocContainer: "#custom-toc-container",
+                    tocDropdown: false
+                });
+            });
+
+            $("#menu-btn").click(function () {
+                testEditor.config({
+                    tocContainer: "",
+                    tocDropdown: true,
+                    tocTitle: "目录 Table of Contents dsfsadfsfdsdf",
+                });
+            });
+
+            $("#menu2-btn").click(function () {
+                testEditor.config({
+                    tocContainer: "#custom-toc-container",
+                    tocDropdown: true,
+                    tocTitle: "目录 Table of Contents dsfsadfsfdsdf",
+                });
+            });
+
+            $("#default-btn").click(function () {
+                $("#custom-toc-container").html("#custom-toc-container");
+                testEditor.config({
+                    tocContainer: "",
+                    tocm: false,
+                    tocDropdown: false
+                });
+            });
+
+            $("#tocm-btn").click(function () {
+                $("#custom-toc-container").html("#custom-toc-container");
+                testEditor.config({
+                    tocm: true,
+                    tocContainer: "",
+                    tocDropdown: false
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -43,7 +43,7 @@
                         this.articleList = res.data;
                         this.articleList.forEach(item => {
                             item.link = item.id;
-                            item.ctime = getCurrentTime(item.ctime * 1000);
+                            item.ctime = getCurrentTime(item.ctime);
                         })
                     }
                 })

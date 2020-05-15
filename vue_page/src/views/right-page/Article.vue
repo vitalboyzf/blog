@@ -55,5 +55,12 @@
         .com{
             width:97%;
         }
+        /*.prettyprint.linenums.prettyprinted{*/
+        /*  background-color: #2d2d2d;*/
+        /*    color:#fff;*/
+        /*}*/
+        .lineums{
+            color:red;
+        }
     }
 </style>

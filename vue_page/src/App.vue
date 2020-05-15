@@ -38,5 +38,28 @@
         #app {
             height: 100%;
         }
+         .prettyprint.linenums.prettyprinted{
+          background-color: #2d2d2d;
+            color:#f70;
+             padding:10px;
+             .pln{
+                 color:#f40;
+             }
+             .pun{
+                 color:#ff9900;
+             }
+             .com{
+                 color:#cccccc;
+             }
+             .str{
+                 color:#f90;
+             }
+             .num{
+                 color:yellow;
+             }
+             .kwd{
+                 color:#00ff00;
+             }
+        }
     }
 </style>
